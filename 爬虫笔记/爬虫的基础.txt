@@ -1,0 +1,211 @@
+一、爬虫基础
+	1.URL：Name、地址	URL---Browser---请求---server---响应----Browser
+	2.超文本:通过http协议传输
+	3.请求
+	3.1请求方式：GET、POST
+	ctrl+f(搜索)
+	GET请求可公开，POST不可公开
+	3.2请求网址
+	请求网址，确定请求资源
+	3.3 请求头
+	User-Agent:作用是不让你访问，区分常规正常访问，伪装成浏览器。
+	Referer:参考信息，当前网址从哪里来，作用是返爬。
+	Cookie:维持当前访问会话信息，作用是模拟登入
+	Content-Type:响应信息
+	3.4请求体（表单）
+	请求表单数据，GET方式没有请求体，POST有请求体。
+	4 响应
+	4.1响应状态码：用来做判断
+		200--请求成功
+		301--资源（网页等）被永久转移到其他URL
+		404--访问不成功（403：禁止访问）
+		500--内部服务器错误
+	4.2响应头
+	4.3响应体
+		重要的部分:html/json/二进制流等
+
+总结：
+	Browser
+	请求：请求方式：get、post
+		请求URL：网页分析，请求地址
+		请求头：
+		请求体：Content-Type、表单请求（POST）
+	server
+	响应：状态码、响应头、响应体（重要部分）
+二、网页基础
+	.开头代表class
+	#开头代表id
+三、爬虫基本原理
+	模拟浏览器进行操作，模拟浏览器去获取感兴趣的目标，保存信息的自动化程序。
+	1获取网页
+
+	2提取数据
+		分析网页源代码，通过正则表达式提取，这是一个万能的方法。
+	3数据保存
+		可保存到文件，也可保存到数据库，如Mysql和MongoDB等，也可保存到远程服务器，如借助SFTP进行操作。
+
+
+代理
+	伪装IP
+
+MongoDB安装
+
+四、爬虫请求库之Urllib
+	Urllib是python内置的HTTP请求
+	包括以下模块：
+	urllib.request 请求模块
+	urllib.error 异常处理模块
+	urllib.parse url 解析模块
+	urllib.robotparser robots.txt 解析模块
+
+
+(一)urllib.request:请求模块
+	urllib.request模块提供了最基本的构造HTTP请求的方法，利用它可以模拟浏览器的一个请求发起过程，同时它还带有处理授权验证（authenticaton）、重定向（redirection)、浏览器Cookies以及其他内容。
+	1.urlopen
+	urllib.request.urlopen(url,data=None,[timeout,])
+	url打开URL,可以接受一个字符串的URL，或者一个Prquest对象;
+	data该参数是可选的，添加字节流编码格式的内容，即bytes类型，需要通过bytes()方法转化。另外，如果传递了这个参数，则它的请求方式就不再是GET方式，而是POST方式。
+	timeout该参数用于设置超时时间，单位为秒，意思就是如果请求超出了设置的这个时间，还没有得到响应，就会抛出异常。如果不指定该参数，就会使用全局默认时间。它支持HTTP、HTTPS、FTP请求。
+
+urllib.request.Request(url,data=None,headers={},method)#Request对象，可以方便添加请求头
+#headers：请求头，可以输入字典的格式
+#method：请求方式，如果data=None，默认是‘GET’
+
+获取响应
+#response是一个HttpResponse的对象
+response.read()#获取响应体，返回的是二进制
+response.read().decode('utf8')#返回的是字符串
+response.status#获取状态码
+response.getheaders()#获取响应头
+response.getneader('name')#获取某个字段的值
+
+
+2.3 urllib.parse
+	urllib.parse.urlencode(dict)#url编码，输入的是字典
+	urllib.parse.quote(str)#url编码，输入的是字符串
+	urllib.parse.unquote(str)#url编码
+2.4
+
+
+
+
+
+
+
+	from urllib.request import urlopen--导包
+	response=urlopen(url="http://www.baidu.com")--请求
+	print(response.read().decode('utf-8'))--获取响应信息
+	#decode('utf-8')--解码
+
+	#爬图片
+	from urllib import request
+	html=request.urlopen(url='https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1546854620093&di=eb9e0420a9926dd85b219040ba8f50e2&imgtype=0&src=http%3A%2F%2Fpic31.nipic.com%2F20130702%2F7447430_091916999000_2.jpg')#get
+	img=html.read()
+	with open('meizi.jpg','wb') as f:
+	f.write(img)
+
+	from urllib import request
+	html=request.urlopen(url='http://www.baidu.com',data=None)#get
+	print(html.read().decode('utf-8'))
+
+
+	dictil={
+		'wd':'python'
+		'a':'nimei'
+	}
+
+	data=bytes(parse.urlencode(dictil),encoding='utf-8')
+
+	response=request.urlopen(url='http://httpbin.org/get')
+	print(response.read().decode('utf-8'))
+
+
+
+
+	from urllib import rerquest
+	
+	headers={
+	}
+	request1 = request.R
+equest('http---',headers=headers)
+	response = request.urlopen(request1)
+	with open('aaa,jpg','wb') as f:
+	f.write(response.read())
+
+
+
+
+post请求：
+
+
+
+
+ 代理
+	
+urllib.error(异常处理)
+	from urllib import request,error
+	try:
+	response = request.urlopen()
+
+urllib.parse
+	from urllib import parse
+	wd='python'
+	url=''
+	print(url)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
